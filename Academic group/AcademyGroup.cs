@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Academic_group
 {
-    internal class AcademyGroup 
+    internal class AcademyGroup : ICloneable
     {
         private ArrayList array;
         public AcademyGroup()
@@ -51,6 +51,29 @@ namespace Academic_group
                 Student? student = array[i] as Student;
                 student.Print();
             }
+        }
+        public object Clone()
+        {
+            AcademyGroup group = new AcademyGroup();
+            for (int i = 0; i < array.Count; i++)
+            {
+                Student? student = array[i] as Student;
+                Student studentNew = new Student();
+                studentNew.Name = student.Name;
+                studentNew.Surname = student.Surname;
+                studentNew.Age = student.Age;
+                studentNew.Phone = student.Phone;
+                studentNew.Average = student.Average;
+                studentNew.Number_Of_Group = student.Number_Of_Group;
+                group.array.Add(studentNew);
+            }
+            return group;
+        }
+        public void Func(ICloneable cloneable)
+        {
+            object o = cloneable.Clone();
+            AcademyGroup c = o as AcademyGroup;
+            c.Print();
         }
     }
 }
