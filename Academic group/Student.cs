@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Academic_group
 {
-    internal class Student : Person
+    internal class Student : Person , IComparable
     {
         double average;
         int number_of_group;
@@ -58,6 +58,43 @@ namespace Academic_group
             Average = int.Parse(Console.ReadLine());
             Console.WriteLine("Введите номер группы студента:");
             Number_Of_Group = int.Parse(Console.ReadLine());
+        }
+        public int CompareTo(object obj)
+        {
+            if (obj is Student)
+                return this.Surname.CompareTo((obj as Student).Surname);
+
+            throw new NotImplementedException();
+        }
+        public class SortByAge : IComparer
+        {
+            int IComparer.Compare(object obj1, object obj2)
+            {
+                if (obj1 is Student && obj2 is Student)
+                    return (obj1 as Student).Age.CompareTo((obj2 as Student).Age);
+
+                throw new NotImplementedException();
+            }
+        }
+        public class SortByAverage : IComparer
+        {
+            int IComparer.Compare(object obj1, object obj2)
+            {
+                if (obj1 is Student && obj2 is Student)
+                    return (obj1 as Student).Average.CompareTo((obj2 as Student).Average);
+
+                throw new NotImplementedException();
+            }
+        }
+        public class SortByNumberOfGroup : IComparer
+        {
+            int IComparer.Compare(object obj1, object obj2)
+            {
+                if (obj1 is Student && obj2 is Student)
+                    return (obj1 as Student).Number_Of_Group.CompareTo((obj2 as Student).Number_Of_Group);
+
+                throw new NotImplementedException();
+            }
         }
     }
 }
